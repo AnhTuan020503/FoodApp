@@ -20,7 +20,7 @@ const Pagination = ({index}) =>{
         </View>
     );
 };
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation}) => {
     const [welcomeListIndex, setWelcomeListIndex]=useState(0)
     const welcomeList = useRef();
     const onViewRef = useRef(({changed}) => {
@@ -32,6 +32,12 @@ const WelcomeScreen = () => {
           index: welcomeListIndex < 2 ? welcomeListIndex + 1 : welcomeListIndex,
         });
       };
+      const scrollToEnd = () => {
+        welcomeList.current.scrollToIndex({
+            index: General.WELCOME_CONTENTS.length - 1,
+        });
+    };
+    
   return (
     <View style={styles.container}>
         <StatusBar 
@@ -60,7 +66,9 @@ const WelcomeScreen = () => {
       <Separator height={Display.setHeight(8)}/>
       {welcomeListIndex === 2 ? (
         <TouchableOpacity style={styles.gettingStartedButton}
-            activeOpacity={0.8}>
+            activeOpacity={0.8}
+            onPress={()=> navigation.navigate('Signin')}
+            >
             <Text style={styles.gettingStartedButtonText}>Get Started</Text>
         </TouchableOpacity>
       ):(
