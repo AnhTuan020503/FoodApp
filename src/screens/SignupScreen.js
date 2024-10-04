@@ -1,19 +1,21 @@
 import { StyleSheet, Text, View,StatusBar,TextInput,TouchableOpacity,Image } from 'react-native'
 import React,{useState} from 'react'
-import { Separator,ToggleButton } from '../components';
+import { Color,Fonts,images } from '../contants'
+import { Separator } from '../components'
 import Ionicons from "react-native-vector-icons/Ionicons"
+import { Display } from '../utils'
 import Feather from "react-native-vector-icons/Feather"
-import { Color, Fonts,images } from '../contants';
-import { Display } from '../utils';
-const SigninScreen = ({navigation}) => {
+
+
+const SignupScreen = ({navigation}) => {
     const [isPasswordShow, setIsPasswordShow] =useState(false);
   return (
     <View style={styles.container}>
-      <StatusBar 
+        <StatusBar 
         barStyle="dark-content" 
         backgroundColor={Color.DEFAULT_WHITE}
         translucent
-     />
+        />
       <Separator
         height={StatusBar.currentHeight}
       />
@@ -22,10 +24,16 @@ const SigninScreen = ({navigation}) => {
                 size={30} onPress={()=> 
                 navigation.goBack()}
             />
-            <Text style={styles.headerTitle}>Sign in</Text>
+            <Text style={styles.headerTitle}>Sign up</Text>
       </View>
-      <Text style={styles.title}>Welcome</Text>
-      <Text style={styles.content}>Enter your username and password, and enjoy ordering food</Text>
+      <Text style={styles.title}>Create Account</Text>
+        <Text style={styles.content}>Enter your username and password, and enjoy ordering food</Text>
+        <Text 
+            style={styles.signuptext}
+            onPress={()=> navigation.navigate('Signin')}>
+            Already have account?
+        </Text>
+      
       <View style={styles.inputContainer}>
         <View style={styles.inputSubContainer}>
             <Feather 
@@ -36,6 +44,23 @@ const SigninScreen = ({navigation}) => {
             />
             <TextInput  
                 placeholder="Username"
+                placeholderTextColor={Color.DEFAULT_GREY}
+                selectionColor={Color.DEFAULT_GREY}
+                style={styles.inputText}
+            />
+        </View>
+      </View>
+      <Separator height={15}/>
+      <View style={styles.inputContainer}>
+        <View style={styles.inputSubContainer}>
+            <Feather 
+                name="mail"
+                size={22}
+                color={Color.DEFAULT_GREY}
+                style={{margnRight :10}}
+            />
+            <TextInput  
+                placeholder="Email Address"
                 placeholderTextColor={Color.DEFAULT_GREY}
                 selectionColor={Color.DEFAULT_GREY}
                 style={styles.inputText}
@@ -67,29 +92,11 @@ const SigninScreen = ({navigation}) => {
             />
         </View>
       </View>
-      <Text></Text>
-      <View style={styles.forgotPasswordContainer}>
-        <View style={styles.toggleContainer}>
-            <ToggleButton size={0.6}/>
-            <Text style={styles.rememberMeText}>Remember me</Text>
-        </View>
-            <Text 
-                style={styles.forgotPasswordText}
-                onPress={()=> navigation.navigate('Forgot')}>
-                Forgot PassWord
-            </Text>
-      </View>
-      <TouchableOpacity style={styles.signinButton}>
-        <Text style={styles.signinButtonText}>Sign in</Text>
+      <TouchableOpacity style={styles.signinButton} 
+                onPress={()=> navigation.navigate('Register')}>
+        <Text style={styles.signinButtonText}>Create Account</Text>
       </TouchableOpacity>
-      <View style={styles.signupContainer}>
-        <Text style={styles.accountText}>Don't have an account?</Text>
-        <Text 
-            style={styles.signuptext}
-            onPress={()=> navigation.navigate('Signup')}>
-            Sign up
-        </Text>
-      </View>
+      <Separator height={15}/>
       <Text style={styles.orText}>OR</Text>
       <TouchableOpacity style={styles.facebookButton}>
         <View style={styles.socialButtonContainer}>
@@ -115,7 +122,7 @@ const SigninScreen = ({navigation}) => {
   )
 }
 
-export default SigninScreen
+export default SignupScreen
 
 const styles = StyleSheet.create({
     container:{
@@ -172,26 +179,6 @@ const styles = StyleSheet.create({
         color:Color.DEFAULT_BLACK,
         flex:1,
     },
-    forgotPasswordContainer:{
-        marginHorizontal:20,
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-between',
-    },
-    rememberMeText:{
-        marginLeft:10,
-        fontSize:12,
-        lineHeight:12*1.4,
-        color:Color.DEFAULT_GREY,
-        fontFamily:Fonts.POPPINS_MEDIUM,
-    },
-    forgotPasswordText:{
-        marginLeft:10,
-        fontSize:12,
-        lineHeight:12*1.4,
-        color:Color.DEFAULT_GREEN,
-        fontFamily:Fonts.POPPINS_BOLD,
-    },
     signinButton:{
         backgroundColor:Color.DEFAULT_GREEN,
         borderRadius:8,
@@ -206,26 +193,6 @@ const styles = StyleSheet.create({
         lineHeight:18*1.4,
         color:Color.DEFAULT_WHITE,
         fontFamily:Fonts.POPPINS_MEDIUM,
-    },
-    signupContainer:{
-        marginHorizontal:20,
-        justifyContent:'center',
-        paddingVertical:20,
-        flexDirection:'row',
-        alignItems:'center',
-    },
-    accountText:{
-        fontSize:13,
-        lineHeight:13*1.4,
-        color:Color.DEFAULT_BLACK,
-        fontFamily:Fonts.POPPINS_MEDIUM,
-    },
-    signuptext:{
-        fontSize:13,
-        lineHeight:13*1.4,
-        color:Color.DEFAULT_GREEN,
-        fontFamily:Fonts.POPPINS_MEDIUM,
-        marginLeft:5,
     },
     orText:{
         fontSize:15,
@@ -275,8 +242,12 @@ const styles = StyleSheet.create({
         lineHeight:13*1.4,
         fontFamily:Fonts.POPPINS_MEDIUM,
     },
-    toggleContainer:{
-        flexDirection:'row',
-        alignItems:'center',
+    signuptext:{
+        fontSize:13,
+        lineHeight:13*1.4,
+        color:Color.DEFAULT_GREEN,
+        fontFamily:Fonts.POPPINS_MEDIUM,
+        marginHorizontal:15,
+        marginVertical:20,
     },
 })
