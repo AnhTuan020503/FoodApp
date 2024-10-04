@@ -5,7 +5,8 @@ import { SplashScreen,
         SigninScreen,
         SignupScreen,
         ForgotPasswordScreen,
-        RegisterPhoneScreen } from "../screens";
+        RegisterPhoneScreen,
+        VerificationScreen } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // Khởi tạo Stack Navigator
@@ -20,6 +21,7 @@ const Navigators =() =>{
                 <Stack.Screen name="Signup" component={SignupScreen}/>
                 <Stack.Screen name="Forgot" component={ForgotPasswordScreen}/>
                 <Stack.Screen name="Register" component={RegisterPhoneScreen}/>
+                <Stack.Screen name="Verification" component={VerificationScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
