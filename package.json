@@ -13,6 +13,9 @@
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
+    "axios": "^1.7.7",
+    "lottie-ios": "^4.5.0",
+    "lottie-react-native": "^7.0.0",
     "react": "18.3.1",
     "react-native": "0.75.3",
     "react-native-gesture-handler": "^2.20.0",
@@ -40,5 +43,8 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@3.6.4",
+  "projectConfig": {
+    "backendApiBaseUrl": "http://192.168.1.13:3000"
+  }
 }
