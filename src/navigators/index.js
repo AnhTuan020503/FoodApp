@@ -6,25 +6,50 @@ import { SplashScreen,
         SignupScreen,
         ForgotPasswordScreen,
         RegisterPhoneScreen,
-        VerificationScreen } from "../screens";
+        VerificationScreen,
+        HomeScreen,
+     } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
+import { connect } from "react-redux";
 
 // Khởi tạo Stack Navigator
 const Stack = createStackNavigator();
-const Navigators =() =>{
+
+const Navigators =({token}) =>{
+    console.log(token);
     return(
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
-                <Stack.Screen name="Splash" component={SplashScreen}/>
-                <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-                <Stack.Screen name="Signin" component={SigninScreen}/>
-                <Stack.Screen name="Signup" component={SignupScreen}/>
-                <Stack.Screen name="Forgot" component={ForgotPasswordScreen}/>
-                <Stack.Screen name="Register" component={RegisterPhoneScreen}/>
-                <Stack.Screen name="Verification" component={VerificationScreen}/>
+                {
+                    !token ? (
+                        <>
+                        <Stack.Screen name="Splash" component={SplashScreen}/>
+                        <Stack.Screen name="Welcome" component={WelcomeScreen}/>
+                        <Stack.Screen name="Signin" component={SigninScreen}/>
+                        <Stack.Screen name="Signup" component={SignupScreen}/>
+                        <Stack.Screen 
+                            name="Forgot" 
+                            component={ForgotPasswordScreen}
+                        />
+                        <Stack.Screen
+                            name="Register" 
+                            component={RegisterPhoneScreen}
+                        />
+                        <Stack.Screen name="Verification" component={VerificationScreen}/>
+                        </>
+
+                    ) :(
+                    <Stack.Screen name="Home" component={HomeScreen}/>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     );
 };
 
-export default Navigators;
+const mapStateToProps = state =>{
+    return{
+        token: state.generalState.token,
+    };
+};
+
+export default connect(mapStateToProps) (Navigators);
