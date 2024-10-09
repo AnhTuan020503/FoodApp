@@ -3,6 +3,9 @@ import React,{useState,useRef} from 'react'
 import { Color,Fonts,General } from '../contants';
 import {WelcomeCard,Separator} from '../components';
 import { Display } from '../utils';
+import { StorageService } from '../services';
+import { useDispatch } from 'react-redux';
+import { GeneralAction } from '../actions';
 
 const pageStyle = isActive =>
     isActive
@@ -37,6 +40,13 @@ const WelcomeScreen = ({navigation}) => {
             index: General.WELCOME_CONTENTS.length - 1,
         });
     };
+const dispatch = useDispatch()
+
+    const navigate = () =>{
+        StorageService.setFirstTimeUse().then(()=>{
+            dispatch(GeneralAction.setIsFirstTimeUse())
+        })
+    }
     
   return (
     <View style={styles.container}>
@@ -67,7 +77,7 @@ const WelcomeScreen = ({navigation}) => {
       {welcomeListIndex === 2 ? (
         <TouchableOpacity style={styles.gettingStartedButton}
             activeOpacity={0.8}
-            onPress={()=> navigation.navigate('Signin')}
+            onPress={()=> navigate()}
             >
             <Text style={styles.gettingStartedButtonText}>Get Started</Text>
         </TouchableOpacity>
