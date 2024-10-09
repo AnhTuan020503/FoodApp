@@ -5,4 +5,6 @@ import { thunk } from "redux-thunk";
 
 const Store = createStore(Reducers, applyMiddleware(thunk));
 
-export default Store;
+const getToken = () => Store?.getState()?.generalState?.token;
+
+export {Store, getToken};
