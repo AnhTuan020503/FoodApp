@@ -25,10 +25,12 @@ const getUserData = async () =>{
             }
         }
     } catch (error) {
-        return{
+        console.log (error?.response?.data);
+        return {
             status: false,
-            message : `User data not found`,
-        }
+            message: error?.response?.data?.message ? error?.response?.data?.message : `User data not found`,
+        };
+        
     }
 }
 
