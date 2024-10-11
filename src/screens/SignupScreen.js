@@ -9,48 +9,49 @@ import Feather from "react-native-vector-icons/Feather"
 import { AuthenticationService } from '../services'
 import LottieView from 'lottie-react-native'
 
-const inputStyle = (state) => {
-    switch(state){
-        case 'valid':
-            return {
-                ...styles.inputContainer, 
-                borderWidth: 1, 
-                borderColor: Color.SECONDARY_GREEN,
-            }
-        case 'invalid':
-            return {
-                ...styles.inputContainer, 
-                borderWidth: 1, 
-                borderColor: Color.DEFAULT_RED,
-            }
-            default:
-            return styles.inputContainer
+const inputStyle = state => {
+    switch (state) {
+      case 'valid':
+        return {
+          ...styles.inputContainer,
+          borderWidth: 1,
+          borderColor: Color.SECONDARY_GREEN,
+        };
+      case 'invalid':
+        return {
+          ...styles.inputContainer,
+          borderWidth: 1,
+          borderColor: Color.DEFAULT_RED,
+        };
+      default:
+        return styles.inputContainer;
     }
-}
-const showMarker = (state) => {
-    switch(state){
-        case 'valid':
-            return (
-                <AntDesign
-                    name="checkcircleo"
-                    color={Color.SECONDARY_GREEN}
-                    size={18}
-                    style={{marginLeft:5}}
-                />
-            );
-        case 'invalid':
-            return (
-                <AntDesign
-                    name="closecircleo"
-                    color={Color.DEFAULT_RED}
-                    size={18}
-                    style={{marginLeft:5}}
-                />
-            );
-            default:
-            return null
+  };
+  
+  const showMarker = state => {
+    switch (state) {
+      case 'valid':
+        return (
+          <AntDesign
+            name="checkcircleo"
+            color={Color.SECONDARY_GREEN}
+            size={18}
+            style={{marginLeft: 5}}
+          />
+        );
+      case 'invalid':
+        return (
+          <AntDesign
+            name="closecircleo"
+            color={Color.DEFAULT_RED}
+            size={18}
+            style={{marginLeft: 5}}
+          />
+        );
+      default:
+        return null;
     }
-}
+  };
 
 const SignupScreen = ({navigation}) => {
     const [isPasswordShow, setIsPasswordShow] =useState(false);
@@ -63,48 +64,47 @@ const SignupScreen = ({navigation}) => {
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [emailState, setEmailState] = useState('default')
     const [usernameState, setUsernameState] = useState('default')
-    const register = () =>{
-        let user ={
-            username,
-            email,
-            password,
+    const register = () => {
+        let user = {
+          username,
+          email,
+          password,
         };
-        console.log(user);
         setIsLoading(true);
-        AuthenticationService.register(user).then(response =>{
-            setIsLoading(false);
-            console.log(response);
-            if (!response?.status){
-                setErrorMessage(response?.message);
+        AuthenticationService.register(user).then(response => {
+          setIsLoading(false);
+          if (!response?.status) {
+            setErrorMessage(response?.message);
+          }
+        });
+        // navigation.navigate('RegisterPhone')
+      };
+      const checkUserExist = async (type, value) => {
+        if (value?.length > 0) {
+            AuthenticationService.checkUserExist(type, value).then(response => {
+            if (response?.status) {
+              type === 'email' && emailErrorMessage
+                ? setEmailErrorMessage('')
+                : null;
+    
+              type === 'username' && usernameErrorMessage
+                ? setUsernameErrorMessage('')
+                : null;
+              type === 'email' ? setEmailState('valid') : null;
+              type === 'username' ? setUsernameState('valid') : null;
+            } else {
+              type === 'email' ? setEmailErrorMessage(response?.message) : null;
+              type === 'username'
+                ? setUsernameErrorMessage(response?.message)
+                : null;
+              type === 'email' ? setEmailState('invalid') : null;
+              type === 'username' ? setUsernameState('invalid') : null;
             }
-        })
-        // navigation.navigate('Register')
-    }
-    const checkUserExist = async (type,value) =>{
-        if(value?.length > 0){
-            AuthenticationService.checkUserExist(type,value).then(response => {
-                if(response?.status){
-                    type === 'email' && emailErrorMessage 
-                        ? setEmailErrorMessage('') 
-                        : null;
-                    
-                    type === 'username' && usernameErrorMessage 
-                        ? setUsernameErrorMessage('') 
-                        : null;
-                    type === 'email' ? setEmailState('valid'): null;
-                    type === 'username' ? setUsernameState('valid'): null;
-                }else{
-                    type === 'email' ? setEmailErrorMessage(response?.message) :null
-                    type === 'username' ? setUsernameErrorMessage(response?.message) :null;
-                    type === 'email' ? setEmailState('invalid'): null;
-                    type === 'username' ? setUsernameState('invalid'): null;
-                }
-            })
+          });
         }
-    }
-    const checkEmailExist = async () =>{
-        
-    }
+      };
+    
+   
   return (
     <View style={styles.container}>
         <StatusBar 
