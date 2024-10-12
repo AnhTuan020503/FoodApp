@@ -1,4 +1,4 @@
-import {AuthenicationService, StorageService} from '../services';
+import {AuthenticationService, StorageService} from '../services';
 import UserService from '../services/UserService';
 
 const types = {
@@ -63,7 +63,7 @@ const appStart = () => {
               payload: false,
             });
           } else if (userResponse?.message === 'TokenExpiredError') {
-            AuthenicationService.refreshToken().then(tokenResponse => {
+            AuthenticationService.refreshToken().then(tokenResponse => {
               if (tokenResponse?.status) {
                 dispatch({
                   type: types.SET_TOKEN,
