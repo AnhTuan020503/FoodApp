@@ -14,4 +14,7 @@ export default{
     DRINKS: require('../assets/images/drinks.png'),
     DELIVERY_TIME: require('../assets/images/delivery_time.png'),
     DELIVERY_CHARGE: require('../assets/images/delivery_charge.png'),
+    MARKER: require('../assets/images/marker.png'),
+    EMPTY_CART: require('../assets/images/empty_cart.png'),
+    AVATAR: require('../assets/images/user.png'),
 };

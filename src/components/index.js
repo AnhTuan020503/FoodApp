@@ -5,6 +5,8 @@ import FlagItem from "./FlagItem";
 import CategoryMenuItem from "./CategoryMenuItem";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantMediumCard from "./RestaurantMediumCard";
+import CategoryListItem from "./CategoryListItem";
+import FoodCard from "./FoodCart";
 export{
     Separator,
     WelcomeCard,
@@ -13,4 +15,6 @@ export{
     CategoryMenuItem,
     RestaurantCard,
     RestaurantMediumCard,
+    CategoryListItem,
+    FoodCard,
 };

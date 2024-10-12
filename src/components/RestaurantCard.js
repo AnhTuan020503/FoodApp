@@ -30,7 +30,7 @@ const RestaurantCard = ({
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.8}
-    //   onPress={() => navigate(id)}
+      onPress={() => navigate(id)}
     >
       <Ionicons
         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
