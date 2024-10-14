@@ -10,6 +10,7 @@ import { SplashScreen,
         HomeScreen,
         RestaurantScreen,
      } from "../screens";
+import HomeTabs from "./BottomTabs"
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector, useDispatch } from "react-redux";
 import { GeneralAction } from "../actions";
@@ -50,7 +51,7 @@ const Navigators = () => {
           </>
             ) :(
                 <>
-                  <Stack.Screen name="Home" component={HomeScreen}/>
+                  <Stack.Screen name="HomeTabs" component={HomeTabs}/>
                   <Stack.Screen name="Restaurant" component={RestaurantScreen}/>
                 </>
                     

@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View,StatusBar,ScrollView,Image,FlatList,TouchableOpacity } from 'react-native'
 import React,{useEffect, useState} from 'react'
 import { ApiContants, Color, Fonts, images } from '../contants'
-import { RestaurantService,StaticImageService } from '../services'
+import { RestaurantService,StaticImageService,CartService } from '../services'
 import { Display } from '../utils'
 import { CategoryListItem, FoodCard, Separator } from '../components'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {useDispatch, useSelector} from 'react-redux';
 const ListHeader = () => (
     <View
       style={{
@@ -46,6 +47,10 @@ const RestaurantScreen = ({navigation, route: {params:{restaurantId}}}) => {
     const [restaurant,setRestaurant] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [isBookmarked, setIsBookmarked] = useState(false)
+    const dispatch = useDispatch();
+    
+
+
     useEffect(()=>{
         RestaurantService.getOneRestaurantById(restaurantId).then(response => {
             setSelectedCategory(response?.data?.categories[0]);
