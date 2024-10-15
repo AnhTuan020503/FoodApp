@@ -162,9 +162,13 @@ const RestaurantScreen = ({navigation, route: {params:{restaurantId}}}) => {
                         ?.map(item => (
                         <FoodCard
                         key={item?.id}
-                        {...item}/>
+                        {...item}
+                        navigate={() =>
+                            navigation.navigate('Food', {foodId: item?.id})
+                        }
+                    />
                     ))}
-                    <Separator height={Display.setHeight(4)}/>
+                    <Separator height={Display.setHeight(2)}/>
                 </View>
             </View>
         </ScrollView>

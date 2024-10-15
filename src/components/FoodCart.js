@@ -7,19 +7,20 @@ import { Display } from '../utils'
 import { useDispatch,useSelector } from 'react-redux'
 import { CartAction } from '../actions'
 
-const FoodCart = ({id,name,description,price,image}) => {
+const FoodCard = ({id, name, description, price, image, navigate}) => {
   const dispatch = useDispatch();
-    const itemCount = useSelector(
-      state =>
-        state?.cartState?.cart?.cartItems?.find(item => item?.foodId === id)
-          ?.count,
-    );
-    const addToCart = foodId => dispatch(CartAction.addToCart({foodId}));
-    const removeFromCart = foodId => dispatch(CartAction.removeFromCart({foodId}));
+  const itemCount = useSelector(
+    state =>
+      state?.cartState?.cart?.cartItems?.find(item => item?.foodId === id)
+        ?.count,
+  );
+  const addToCart = foodId => dispatch(CartAction.addToCart({foodId}));
+  const removeFromCart = foodId =>
+    dispatch(CartAction.removeFromCart({foodId}));
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
-      <Image
+      <TouchableOpacity onPress={() => navigate()} activeOpacity={0.8}>
+        <Image
           style={styles.image}
           source={{
             uri: StaticImageService.getGalleryImage(
@@ -30,44 +31,43 @@ const FoodCart = ({id,name,description,price,image}) => {
         />
       </TouchableOpacity>
       <View style={styles.detailsContainer}>
-        <TouchableOpacity>
-            <Text numberOfLines={1} style={styles.titleText}>
-                {name}
-            </Text>
-            <Text numberOfLines={2} style={styles.descriptionText}>
-                {description}
-            </Text>
+        <TouchableOpacity onPress={() => navigate()} activeOpacity={0.8}>
+          <Text numberOfLines={1} style={styles.titleText}>
+            {name}
+          </Text>
+          <Text numberOfLines={2} style={styles.descriptionText}>
+            {description}
+          </Text>
         </TouchableOpacity>
         <View style={styles.footerContainer}>
-            <Text style={styles.priceText}>$ {price}</Text>
-            <View style={styles.itemAddContainer}>
-            {itemCount > 0 ?(
-                <>
-                <AntDesign 
-                 name="minus"
-                 color={Color.DEFAULT_YELLOW}
-                 size={18}
-                 onPress={()=> removeFromCart(id)}
+          <Text style={styles.priceText}>$ {price}</Text>
+          <View style={styles.itemAddContainer}>
+            {itemCount > 0 ? (
+              <>
+                <AntDesign
+                  name="minus"
+                  color={Color.DEFAULT_YELLOW}
+                  size={18}
+                  onPress={() => removeFromCart(id)}
                 />
                 <Text style={styles.itemCountText}>{itemCount}</Text>
-                </>    
-            ): null}
-            
-           
-                <AntDesign 
-                    name="plus"
-                    color={Color.DEFAULT_YELLOW}
-                    size={18}
-                    onPress={()=> addToCart(id)}
-                />
-            </View>
+              </>
+            ) : null}
+
+            <AntDesign
+              name="plus"
+              color={Color.DEFAULT_YELLOW}
+              size={18}
+              onPress={() => addToCart(id)}
+            />
+          </View>
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default FoodCart
+export default FoodCard
 
 const styles = StyleSheet.create({
     container: {
