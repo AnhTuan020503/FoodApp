@@ -7,6 +7,7 @@ import RestaurantCard from "./RestaurantCard";
 import RestaurantMediumCard from "./RestaurantMediumCard";
 import CategoryListItem from "./CategoryListItem";
 import FoodCard from "./FoodCart";
+import BookmarkCard from "./BookmarkCard";
 export{
     Separator,
     WelcomeCard,
@@ -17,4 +18,5 @@ export{
     RestaurantMediumCard,
     CategoryListItem,
     FoodCard,
+    BookmarkCard,
 };

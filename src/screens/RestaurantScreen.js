@@ -7,6 +7,7 @@ import { CategoryListItem, FoodCard, Separator } from '../components'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {useDispatch, useSelector} from 'react-redux';
+import { BookmarkAction } from '../actions'
 const ListHeader = () => (
     <View
       style={{
@@ -46,8 +47,8 @@ const ListHeader = () => (
 const RestaurantScreen = ({navigation, route: {params:{restaurantId}}}) => {
     const [restaurant,setRestaurant] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null)
-    const [isBookmarked, setIsBookmarked] = useState(false)
-    const dispatch = useDispatch();
+    // const [isBookmarked, setIsBookmarked] = useState(false)
+    
     
 
 
@@ -57,6 +58,17 @@ const RestaurantScreen = ({navigation, route: {params:{restaurantId}}}) => {
             setRestaurant(response?.data);
         })
     },[]);
+    const dispatch = useDispatch();
+    const isBookmarked = useSelector(
+      state =>
+        state?.bookmarkState?.bookmarks?.filter(
+          item => item?.restaurantId === restaurantId,
+        )?.length > 0,
+    );
+    const addBookmark = () =>
+      dispatch(BookmarkAction.addBookmark({restaurantId}));
+    const removeBookmark = () =>
+      dispatch(BookmarkAction.removeBookmark({restaurantId}));
   return (
     <View style={styles.container}>
       <StatusBar 
@@ -71,7 +83,7 @@ const RestaurantScreen = ({navigation, route: {params:{restaurantId}}}) => {
                     onPress={() => navigation.goBack()} // Quay lại trang trước
                 >
                     <Ionicons 
-                        name="arrow-back-outline" 
+                        name="chevron-back-outline" 
                         size={30} 
                         color={Color.DEFAULT_BLACK}
                     />
@@ -94,8 +106,9 @@ const RestaurantScreen = ({navigation, route: {params:{restaurantId}}}) => {
                         name={isBookmarked ? 'bookmark' : "bookmark-outline"}
                         color={Color.DEFAULT_YELLOW}
                         size={24}
-                        onPress={() => setIsBookmarked(!isBookmarked)}
-                        
+                        onPress={() =>
+                            isBookmarked ? removeBookmark() : addBookmark()
+                        }
                     />
                 </View>
                 <Text style={styles.tagText}>{restaurant?.tags?.join(' • ')}</Text>

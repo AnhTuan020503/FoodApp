@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   posterStyle: {
-    width: Display.setWidth(20),
-    height: Display.setWidth(20),
+    width: Display.setWidth(10),
+    height: Display.setWidth(10),
     borderRadius: 10,
     margin: 5,
   },
