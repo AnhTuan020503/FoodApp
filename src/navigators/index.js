@@ -10,6 +10,8 @@ import { SplashScreen,
         HomeScreen,
         RestaurantScreen,
         FoodScreen,
+        UserProfileScreen,
+        GoogleMapScreen,
      } from "../screens";
 import HomeTabs from "./BottomTabs"
 import { createStackNavigator } from "@react-navigation/stack";
@@ -55,6 +57,8 @@ const Navigators = () => {
                   <Stack.Screen name="HomeTabs" component={HomeTabs}/>
                   <Stack.Screen name="Restaurant" component={RestaurantScreen}/>
                   <Stack.Screen name="Food" component={FoodScreen}/>
+                  <Stack.Screen name="UserProfile" component={UserProfileScreen}/>
+                  <Stack.Screen name="GoogleMap" component={GoogleMapScreen}/>
                 </>
                     
                 )}
